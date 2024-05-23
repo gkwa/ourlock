@@ -25,7 +25,7 @@ Sigh...
 # find notes on golang charm package
 ourlock search charm golang
 
-# nothings' working, debug
+# nothings' working, just show command that would be run
 ourlock search charm golang --dry-run
 
 ```
