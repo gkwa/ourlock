@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/gkwa/ourlock/core"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/taylormonacelli/goldbug"
@@ -26,11 +27,13 @@ examples and usage of using your application. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) {
-	// 	fmt.Println("Hello from ourlock!")
-	// },
+	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) < 2 {
+			fmt.Println("Usage: ourlock <string1> <string2> [<string3> ...]")
+			os.Exit(1)
+		}
+		core.Run(args)
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

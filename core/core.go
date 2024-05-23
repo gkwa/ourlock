@@ -9,14 +9,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 )
 
-func Run() {
-	if len(os.Args) < 3 {
-		fmt.Println("Usage: myapp <string1> <string2> [<string3> ...]")
-		os.Exit(1)
-	}
-
-	searchStrings := os.Args[1:]
-
+func Run(searchStrings []string) {
 	directories := []string{
 		"/Users/mtm/Documents/Obsidian\\ Vault/",
 		"~/pdev/taylormonacelli/notes/",
