@@ -1,11 +1,9 @@
 package cmd
 
 import (
-	"fmt"
 	"log/slog"
 	"os"
 
-	"github.com/gkwa/ourlock/core"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"github.com/taylormonacelli/goldbug"
@@ -17,7 +15,6 @@ var (
 	logFormat string
 )
 
-// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "ourlock",
 	Short: "A brief description of your application",
@@ -27,17 +24,8 @@ examples and usage of using your application. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) < 2 {
-			fmt.Println("Usage: ourlock <string1> <string2> [<string3> ...]")
-			os.Exit(1)
-		}
-		core.Run(args)
-	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
@@ -47,10 +35,6 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
 
 	var err error
 
@@ -68,38 +52,24 @@ func init() {
 		slog.Error("error binding log-format flag", "error", err)
 		os.Exit(1)
 	}
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	err = viper.BindPFlag("toggle", rootCmd.Flags().Lookup("toggle"))
-	if err != nil {
-		slog.Error("error binding toggle flag", "error", err)
-		os.Exit(1)
-	}
 }
 
-// initConfig reads in config file and ENV variables if set.
 func initConfig() {
 	if cfgFile != "" {
-		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
-		// Find home directory.
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".ourlock" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
 		viper.SetConfigName(".ourlock")
 	}
 
-	viper.AutomaticEnv() // read in environment variables that match
+	viper.AutomaticEnv()
 
-	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+		slog.Info("Using config file", "path", viper.ConfigFileUsed())
 	}
 
 	logFormat = viper.GetString("log-format")
