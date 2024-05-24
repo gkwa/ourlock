@@ -57,6 +57,26 @@ rg golang.+\?charm\|charm.+\?golang --ignore-case --glob-case-insensitive --mult
 
 ```
 
+## TODO: we're not searching file paths, consider this as option
+
+
+
+
+
+
+```log
+
+[mtm@taylors-MacBook-Pro-2:ourlock(master)]$ rg --files '/Users/mtm/Documents/Obsidian Vault/' /Users/mtm/pdev/taylormonacelli/notes | rg '.*\.([md,txt,org])' | grep -i raisin
+/Users/mtm/Documents/Obsidian Vault/raisins.md
+/Users/mtm/Documents/Obsidian Vault/Sweet Raisins.md
+[mtm@taylors-MacBook-Pro-2:ourlock(master)]$
+
+```
+
+
+from https://unix.stackexchange.com/a/503170/361813
+
+
 ## install ourlock
 
 
