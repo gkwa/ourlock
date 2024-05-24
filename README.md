@@ -5,28 +5,55 @@ This is stop gap until I learn elasticsearch.
 
 My notes are getting out of hand over the years; first it was org mode, then org mode with everything in one file, then markdown with very well define small files.
 
-Now I need to find these notes and I'm using ripgrep, like this monstrocity:
 
-```bash
 
-rg test1\(\?s:.\*\?\)test2\|test2\(\?s:.\*\?\)test1 --ignore-case --glob-case-insensitive --multiline-dotall --color=always --glob=\*.\{md,txt,org} --context=20 '/Users/mtm/Documents/Obsidian Vault/' /Users/mtm/pdev/taylormonacelli/notes
+So far, this seems useful:
 
-```
+- Find notes that contain 'golang' and 'charm' in order to remind myself how to setup golang charm
 
-Sigh...
+- Amongtst all my notes, show me blobs of notes that have 'elasticsearch' and 'getting started' within 100 characters of each other.
+
+
+
+
 
 
 
 
 ## example usage
 
-```bash
+Show all blobs/notes where 'elasticsearch' is within 100 characters of 'getting started'
 
-# find notes on golang charm package
-ourlock search charm golang
 
-# nothings' working, just show command that would be run
-ourlock search charm golang --dry-run
+```log
+
+[mtm@taylors-MacBook-Pro-2:ourlock(master)]$ ourlock distancesearch elasticsearch "getting started" --distance 100 --dry-run
+rg 'elasticsearch.{0,100}?getting started' --ignore-case --glob-case-insensitive --multiline --multiline-dotall --color=always --glob=\*.\{md,txt,org} --context=20 '/Users/mtm/Documents/Obsidian Vault/' /Users/mtm/pdev/taylormonacelli/notes
+[mtm@taylors-MacBook-Pro-2:ourlock(master)]$
+
+```
+
+
+## example usage
+
+
+Get files that have golang and charm in them
+
+```log
+
+[mtm@taylors-MacBook-Pro-2:ourlock(master)]$ ourlock existancesearch golang charm --dry-run
+2 Permutations:
+[golang charm]
+[charm golang]
+rg golang.+\?charm\|charm.+\?golang --ignore-case --glob-case-insensitive --multiline --multiline-dotall --color=always --glob=\*.\{md,txt,org} --files-with-matches '/Users/mtm/Documents/Obsidian Vault/' /Users/mtm/pdev/taylormonacelli/notes
+[mtm@taylors-MacBook-Pro-2:ourlock(master)]$ ourlock existancesearch golang charm
+/Users/mtm/Documents/Obsidian Vault/Golang Prompting packages.md
+/Users/mtm/Documents/Obsidian Vault/Pushbullet History.md
+/Users/mtm/Documents/Obsidian Vault/Charm.md
+/Users/mtm/pdev/taylormonacelli/notes/notes.txt
+/Users/mtm/Documents/Obsidian Vault/bubbletea.md
+/Users/mtm/pdev/taylormonacelli/notes/notes2.txt
+[mtm@taylors-MacBook-Pro-2:ourlock(master)]$
 
 ```
 
@@ -36,7 +63,7 @@ ourlock search charm golang --dry-run
 on macos/linux:
 ```bash
 
-brew install taylormonacelli/homebrew-tools/ourlock
+brew install gkwa/homebrew-tools/ourlock
 
 ```
 
