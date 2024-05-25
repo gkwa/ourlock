@@ -15,13 +15,6 @@ var (
 	Directories []string
 )
 
-func init() {
-	Directories = []string{
-		"/Users/mtm/Documents/Obsidian Vault/",
-		"~/pdev/taylormonacelli/notes/",
-	}
-}
-
 func Run(rgArgs []string, directories []string) {
 	expandedDirectories := expandTilde(directories)
 
