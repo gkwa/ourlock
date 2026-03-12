@@ -7,7 +7,7 @@ toolchain go1.26.1
 require (
 	github.com/go-git/go-git/v5 v5.17.0
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
-	github.com/magefile/mage v1.16.0
+	github.com/magefile/mage v1.16.1
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/viper v1.21.0
